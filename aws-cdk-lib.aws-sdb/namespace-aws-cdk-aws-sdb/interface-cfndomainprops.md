@@ -1,16 +1,17 @@
 # Interface CfnDomainProps
 
-Properties for defining a `AWS::SDB::Domain`.[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html)
+`AWS::SDB::Domain`를 정의하기 위한 프로퍼티.
+[AWS 공식 설명서 - aws-properties-simpledb](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html)
 
-#### Synopsis <a id="aws_sdb_CfnDomainProps_synopsis"></a>
+#### 시놉시스
 
-**Properties**
+**프로퍼티**
 
 | [description](https://docs.aws.amazon.com/cdk/api/latest/typescript/api/aws-sdb/cfndomainprops.html#aws_sdb_CfnDomainProps_description) | `AWS::SDB::Domain.Description`. |
 | :--- | :--- |
 
 
-#### Properties <a id="properties"></a>
+#### 프로퍼티 <a id="properties"></a>
 
 **description**
 
@@ -18,13 +19,13 @@ Properties for defining a `AWS::SDB::Domain`.[http://docs.aws.amazon.com/AWSClou
 
 http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html\#cfn-sdb-domain-description
 
-**Declaration**
+**정의**
 
 ```text
 readonly description?: string;
 ```
 
-**Property Value**
+**속성 값 타입**
 
 string
 

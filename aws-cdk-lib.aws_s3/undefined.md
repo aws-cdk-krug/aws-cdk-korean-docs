@@ -16,7 +16,7 @@ description: Overview
 new Bucket(this, 'MyFirstBucket');
 ```
 
-`Bucket` 컨스트럭터 다음과 같은 배포에 대한 어트리뷰트를 사용합니다 
+`Bucket` 컨스트럭터 다음과 같은 배포에 대한 어트리뷰트를 사용합니다
 
 * `bucketArn` - 버킷의 ARN \(예 : `arn:aws:s3:::bucket_name`\)
 * `bucketName` - 버킷의 이름 \(예 `bucket_name`\)
@@ -31,7 +31,7 @@ new Bucket(this, 'MyFirstBucket');
 
 ### Encryption \(암호화\)
 
-KMS로 암호화된 버킷 정의 : 
+KMS로 암호화된 버킷 정의 :
 
 ```text
 const bucket = new Bucket(this, 'MyEncryptedBucket', {
@@ -55,7 +55,7 @@ const bucket = new Bucket(this, 'MyEncryptedBucket', {
 assert(bucket.encryptionKey === myKmsKey);
 ```
 
- [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) 를 통한 KMS-SSE 암호화 활성화는 아래와 같이 할 수 있습니다.
+[S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-key.html) 를 통한 KMS-SSE 암호화 활성화는 아래와 같이 할 수 있습니다.
 
 ```text
 const bucket = new Bucket(this, 'MyEncryptedBucket', {
@@ -110,17 +110,17 @@ bucket.grantReadWrite(lambda);
 
 #### SSL\(Secure Socket Layer\) 강제
 
-```
+```text
 const bucket = new Bucket(this, 'Bucket', {
 enforceSSL: true
 });
 ```
 
-### 스택간 버킷 공유 
+### 스택간 버킷 공유
 
 동일한 CDK 어플리케이션 내에서 다른 스택에 있는 버킷을 사용할려면 객체를 다른 스택에 전달해서 사용합니다.
 
-### 기존 버킷 불러오기 
+### 기존 버킷 불러오기
 
 기존 버킷을 CDK 응용 프로그램으로 가져오려`Bucket.from BucketAttributes`메소드 사용하십시오. 이 메소드에서는 이미 존재하는 버킷의 속성을 설명하는 `BucketAttributes` 사용할 수 있습니다.
 
@@ -139,6 +139,7 @@ bucket.grantReadWrite(user);
 const byName = Bucket.fromBucketName(this, 'BucketByName', 'my-bucket');
 const byArn  = Bucket.fromBucketArn(this, 'BucketByArn', 'arn:aws:s3:::my-bucket');
 ```
+
 버킷의 영역은 기본적으로 현재 스택의 영역으로 설정되지만 버킷의 국가별 속성 중 하나에 올바른 값이 포함되어야 하는 경우에도 명시적으로 설정할 수 있습니다.
 
 ```text
@@ -155,10 +156,9 @@ Amazon S3 알림 기능을 사용하면 의 설명에 따라 버킷에서 특정
 
 S3 개발자 가이드의 내용을 참조하십시오. [S3 Bucket Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
 
-버킷 알림을 구독하려면 'bucket.addEventNotification' 메소드를 사용하십시오. 
-'bucket.addObjectCreatedNotification' 및 'bucket.addObjectRemovedNotification'도 이러한 일반적인 사용 사례에 사용할 수 있습니다.
+버킷 알림을 구독하려면 'bucket.addEventNotification' 메소드를 사용하십시오. 'bucket.addObjectCreatedNotification' 및 'bucket.addObjectRemovedNotification'도 이러한 일반적인 사용 사례에 사용할 수 있습니다.
 
-`s3:ObjectCreated:*` 이벤트: 다음은 SNS 주제를 구독하여 모든 S3 오브젝트 생성에 대해 알립니다. 
+`s3:ObjectCreated:*` 이벤트: 다음은 SNS 주제를 구독하여 모든 S3 오브젝트 생성에 대해 알립니다.
 
 ```text
 import { aws_s3_notifications as s3n } from 'aws-cdk-lib';
@@ -207,7 +207,7 @@ const bucket = new Bucket(this, 'MyBlockedBucket', {
 });
 ```
 
-`blockPublicPolicy` 를 `true`로 설정하면 grantPublicRead()가 오류를 발생시킵니다.
+`blockPublicPolicy` 를 `true`로 설정하면 grantPublicRead\(\)가 오류를 발생시킵니다.
 
 ### 로깅 구성하기
 

@@ -122,29 +122,24 @@ enforceSSL: true
 
 ### 기존 버킷 불러오기 
 
-기존 버킷을 CDK 응용 프로그램으로 가져오려`Bucket.from BucketAttributes`메소드 사용하십시오. 이 메소에서는 이미 존재하는 버킷의 속성을 설명하는 `BucketAttributes` 사용할 수 있습니다.
-
-To import an existing bucket into your CDK application, use the `Bucket.fromBucketAttributes` factory method. This method accepts `BucketAttributes` which describes the properties of an already existing bucket:
+기존 버킷을 CDK 응용 프로그램으로 가져오려`Bucket.from BucketAttributes`메소드 사용하십시오. 이 메소드에서는 이미 존재하는 버킷의 속성을 설명하는 `BucketAttributes` 사용할 수 있습니다.
 
 ```text
 cost bucket = Bucket.fromBucketAttributes(this, 'ImportedBucket', {
     bucketArn: 'arn:aws:s3:::my-bucket'
 });
 
-// now you can just call methods on the bucket
+// 이제 버킷에서 메서드를 호출할 수 있습니다.
 bucket.grantReadWrite(user);
 ```
 
-Alternatively, short-hand factories are available as `Bucket.fromBucketName` and `Bucket.fromBucketArn`, which will derive all bucket attributes from the bucket name or ARN respectively:
+또는 short-hand 팩토리는 버킷 이름 또는 ARN에서 각각 모든 버킷 특성을 가져오는 'Bucket.fromBucketName' 및 'Bucket.FromBucketArn'으로 사용할 수 있습니다.
 
 ```text
 const byName = Bucket.fromBucketName(this, 'BucketByName', 'my-bucket');
 const byArn  = Bucket.fromBucketArn(this, 'BucketByArn', 'arn:aws:s3:::my-bucket');
 ```
-
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
-The bucket's region defaults to the current stack's region, but can also be explicitly set in cases where one of the bucket's regional properties needs to contain the correct values.
+버킷의 영역은 기본적으로 현재 스택의 영역으로 설정되지만 버킷의 국가별 속성 중 하나에 올바른 값이 포함되어야 하는 경우에도 명시적으로 설정할 수 있습니다.
 
 ```text
 const myCrossRegionBucket = Bucket.fromBucketAttributes(this, 'CrossRegionImport', {
@@ -154,15 +149,16 @@ const myCrossRegionBucket = Bucket.fromBucketAttributes(this, 'CrossRegionImport
 // myCrossRegionBucket.bucketRegionalDomainName === 'my-bucket.s3.us-east-1.amazonaws.com'
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
 ### Bucket Notifications
 
-The Amazon S3 notification feature enables you to receive notifications when certain events happen in your bucket as described under [S3 Bucket Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html) of the S3 Developer Guide.
+Amazon S3 알림 기능을 사용하면 의 설명에 따라 버킷에서 특정 이벤트가 발생할 때 알림을 받을 수 있습니다.
 
-To subscribe for bucket notifications, use the `bucket.addEventNotification` method. The `bucket.addObjectCreatedNotification` and `bucket.addObjectRemovedNotification` can also be used for these common use cases.
+S3 개발자 가이드의 내용을 참조하십시오. [S3 Bucket Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
 
-The following example will subscribe an SNS topic to be notified of all `s3:ObjectCreated:*` events:
+버킷 알림을 구독하려면 'bucket.addEventNotification' 메소드를 사용하십시오. 
+'bucket.addObjectCreatedNotification' 및 'bucket.addObjectRemovedNotification'도 이러한 일반적인 사용 사례에 사용할 수 있습니다.
+
+`s3:ObjectCreated:*` 이벤트: 다음은 SNS 주제를 구독하여 모든 S3 오브젝트 생성에 대해 알립니다. 
 
 ```text
 import { aws_s3_notifications as s3n } from 'aws-cdk-lib';
@@ -171,13 +167,11 @@ const myTopic = new sns.Topic(this, 'MyTopic');
 bucket.addEventNotification(s3.EventType.OBJECT_CREATED, new s3n.SnsDestination(topic));
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
+또한 이 호출을 통해 항목 정책이 이 특정 버킷에 대한 알림을 수락할 수 있습니다.
 
-This call will also ensure that the topic policy can accept notifications for this specific bucket.
+지원되는 S3 알림 대상은 '@aws-cdk/aws-s3-notifications' 패키지에 의해 노출됩니다.
 
-Supported S3 notification targets are exposed by the `@aws-cdk/aws-s3-notifications` package.
-
-It is also possible to specify S3 object key filters when subscribing. The following example will notify `myQueue` when objects prefixed with `foo/` and have the `.jpg` suffix are removed from the bucket.
+가입 시 S3 오브젝트 키 필터를 지정할 수도 있습니다. 다음 예제는 'foo/' 접두사가 앞에 붙고 '.jpg' 접미사가 버킷에서 제거될 때 'myQueue'에 알립니다.
 
 ```text
 bucket.addEventNotification(s3.EventType.OBJECT_REMOVED,
@@ -185,13 +179,11 @@ bucket.addEventNotification(s3.EventType.OBJECT_REMOVED,
   { prefix: 'foo/', suffix: '.jpg' });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
+### 퍼블릭 엑세스 차단
 
-### Block Public Access
+'blockPublicAccess'를 사용하여 버킷에서 [blockPublicAccess 설정](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html)을 지정합니다.
 
-Use `blockPublicAccess` to specify [block public access settings](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html) on the bucket.
-
-Enable all block public access settings:
+모든 버킷 차단 및 모든 버킷 액세스 설정 사용:
 
 ```text
 const bucket = new Bucket(this, 'MyBlockedBucket', {
@@ -199,9 +191,7 @@ const bucket = new Bucket(this, 'MyBlockedBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
-Block and ignore public ACLs:
+공용 ACL 차단 및 무시:
 
 ```text
 const bucket = new Bucket(this, 'MyBlockedBucket', {
@@ -209,9 +199,7 @@ const bucket = new Bucket(this, 'MyBlockedBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
-Alternatively, specify the settings manually:
+또는 수동으로 설정을 지정합니다.
 
 ```text
 const bucket = new Bucket(this, 'MyBlockedBucket', {
@@ -219,13 +207,11 @@ const bucket = new Bucket(this, 'MyBlockedBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
+`blockPublicPolicy` 를 `true`로 설정하면 grantPublicRead()가 오류를 발생시킵니다.
 
-When `blockPublicPolicy` is set to `true`, `grantPublicRead()` throws an error.
+### 로깅 구성하기
 
-### Logging configuration
-
-Use `serverAccessLogsBucket` to describe where server access logs are to be stored.
+서버 액세스 로그를 저장할 위치를 지정하려면 'serverAccessLogsBucket'을 사용하십시오.
 
 ```text
 const accessLogsBucket = new Bucket(this, 'AccessLogsBucket');
@@ -235,9 +221,7 @@ const bucket = new Bucket(this, 'MyBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
-It's also possible to specify a prefix for Amazon S3 to assign to all log object keys.
+또한 모든 로그 개체 키에 할당할 Amazon S3 접두사를 지정할 수 있습니다.
 
 ```text
 const bucket = new Bucket(this, 'MyBucket', {
@@ -246,9 +230,7 @@ const bucket = new Bucket(this, 'MyBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
-### S3 Inventory
+### S3 인벤토리
 
 An [inventory](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html) contains a list of the objects in the source bucket and metadata for each object. The inventory lists are stored in the destination bucket as a CSV file compressed with GZIP, as an Apache optimized row columnar \(ORC\) file compressed with ZLIB, or as an Apache Parquet \(Parquet\) file compressed with Snappy.
 
@@ -278,8 +260,6 @@ const dataBucket = new s3.Bucket(this, 'DataBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
 If the destination bucket is created as part of the same CDK application, the necessary permissions will be automatically added to the bucket policy. However, if you use an imported bucket \(i.e `Bucket.fromXXX()`\), you'll have to make sure it contains the following policy document:
 
 ```text
@@ -297,8 +277,6 @@ If the destination bucket is created as part of the same CDK application, the ne
 }
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
 ### Website redirection
 
 You can use the two following properties to specify the bucket [redirection policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html#advanced-conditional-redirects). Please note that these methods cannot both be applied to the same bucket.
@@ -312,8 +290,6 @@ const bucket = new Bucket(this, 'MyRedirectedBucket', {
     websiteRedirect: { hostName: 'www.example.com' }
 });
 ```
-
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
 
 #### Routing rules
 
@@ -334,8 +310,6 @@ const bucket = new Bucket(this, 'MyRedirectedBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
 ### Filling the bucket as part of deployment
 
 To put files into a bucket as part of a deployment \(for example, to host a website\), see the `@aws-cdk/aws-s3-deployment` package, which provides a resource that can do just that.
@@ -352,8 +326,6 @@ bucket.virtualHostedUrlForObject('objectname'); // Virtual Hosted-Style URL
 bucket.virtualHostedUrlForObject('objectname', { regional: false }); // Virtual Hosted-Style URL but non-regional
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
 #### Object Ownership
 
 You can use the two following properties to specify the bucket [object Ownership](https://docs.aws.amazon.com/AmazonS3/latest/dev/about-object-ownership.html).
@@ -368,8 +340,6 @@ new s3.Bucket(this, 'MyBucket', {
 });
 ```
 
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
-
 **Bucket owner preferred**
 
 The bucket owner will own the object if the object is uploaded with the bucket-owner-full-control canned ACL. Without this setting and canned ACL, the object is uploaded and remains owned by the uploading account.
@@ -379,8 +349,6 @@ new s3.Bucket(this, 'MyBucket', {
   objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
 });
 ```
-
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
 
 #### Bucket deletion
 
@@ -394,6 +362,4 @@ const bucket = new Bucket(this, 'MyTempFileBucket', {
   autoDeleteObjects: true,
 });
 ```
-
-\([Example not in your language? Click here.](https://docs.aws.amazon.com/cdk/latest/guide/multiple_languages.html)\)
 

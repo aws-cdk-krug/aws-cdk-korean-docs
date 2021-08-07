@@ -4,7 +4,7 @@
 
 AWS::SDB::Domain 에 대한 정의 [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html)
 
-#### 시놉시스 <a id="aws_sdb_CfnDomain_synopsis"></a>
+## 시놉시스 <a id="aws_sdb_CfnDomain_synopsis"></a>
 
 **컨스트럭터**
 
@@ -24,7 +24,7 @@ AWS::SDB::Domain 에 대한 정의 [http://docs.aws.amazon.com/AWSCloudFormation
 | :--- | :--- |
 | [renderProperties\(props\)](https://docs.aws.amazon.com/cdk/api/latest/typescript/api/aws-sdb/cfndomain.html#aws_sdb_CfnDomain_renderProperties) |  |
 
-#### 컨스트럭터 <a id="constructors"></a>
+## 컨스트럭터 <a id="constructors"></a>
 
 **constructor\(scope, id, props\)**
 
@@ -40,17 +40,17 @@ constructor(scope: cdk.Construct, id: string, props?: CfnDomainProps);
 
 `scope` cdk.Construct
 
- - 이 리소스가 정의된 스코프
+* 이 리소스가 정의된 스코프
 
 id string
 
- - 리소스의 스코프 아이디
+* 리소스의 스코프 아이디
 
 props CfnDomainProps
 
- - 리소스에 대한 속성
+* 리소스에 대한 속성
 
-#### 프로퍼티 <a id="properties"></a>
+## 프로퍼티 <a id="properties"></a>
 
 **cfnProperties**
 
@@ -68,7 +68,7 @@ protected readonly cfnProperties:
 
 `AWS::SDB::Domain.Description`.
 
-http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html\#cfn-sdb-domain-description
+[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html\#cfn-sdb-domain-description](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html#cfn-sdb-domain-description)
 
 **Declaration**
 
@@ -80,7 +80,7 @@ description: string | undefined;
 
 string \| undefined
 
-#### Methods <a id="methods"></a>
+## Methods <a id="methods"></a>
 
 **inspect\(inspector\)**
 

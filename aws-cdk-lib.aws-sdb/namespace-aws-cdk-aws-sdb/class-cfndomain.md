@@ -2,33 +2,33 @@
 
 클라우드포메이션의 `AWS::SDB::Domain`.
 
-AWS::SDB::Domain 에 대한 정[http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html)
+AWS::SDB::Domain 에 대한 정의 [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-simpledb.html)
 
-#### Synopsis <a id="aws_sdb_CfnDomain_synopsis"></a>
+#### 시놉시스 <a id="aws_sdb_CfnDomain_synopsis"></a>
 
-**Constructors**
+**컨스트럭터**
 
-| constructor\(scope, id, props\) | Create a new `AWS::SDB::Domain`. |
+| constructor\(scope, id, props\) | 새로운 `AWS::SDB::Domain` 생성. |
 | :--- | :--- |
 
 
-**Properties**
+**프로퍼티**
 
 | cfnProperties |  |
 | :--- | :--- |
 | [description](https://docs.aws.amazon.com/cdk/api/latest/typescript/api/aws-sdb/cfndomain.html#aws_sdb_CfnDomain_description) | `AWS::SDB::Domain.Description`. |
 
-**Methods**
+**메소드**
 
-| [inspect\(inspector\)](https://docs.aws.amazon.com/cdk/api/latest/typescript/api/aws-sdb/cfndomain.html#aws_sdb_CfnDomain_inspect) | Examines the CloudFormation resource and discloses attributes. |
+| [inspect\(inspector\)](https://docs.aws.amazon.com/cdk/api/latest/typescript/api/aws-sdb/cfndomain.html#aws_sdb_CfnDomain_inspect) | CloudFormation 리소스를 검토하고 속성을 공개합니다. |
 | :--- | :--- |
 | [renderProperties\(props\)](https://docs.aws.amazon.com/cdk/api/latest/typescript/api/aws-sdb/cfndomain.html#aws_sdb_CfnDomain_renderProperties) |  |
 
-#### Constructors <a id="constructors"></a>
+#### 컨스트럭터 <a id="constructors"></a>
 
 **constructor\(scope, id, props\)**
 
-Create a new `AWS::SDB::Domain`.
+새로운 `AWS::SDB::Domain`생성합니다.
 
 **Declaration**
 
@@ -38,15 +38,19 @@ constructor(scope: cdk.Construct, id: string, props?: CfnDomainProps);
 
 **Parameters**
 
-scope cdk.Construct
+`scope` cdk.Construct
 
-scope in which this resource is defined.id string
+ - 이 리소스가 정의된 스코프
 
-scoped id of the resource.props CfnDomainProps
+id string
 
-resource properties.
+ - 리소스의 스코프 아이디
 
-#### Properties <a id="properties"></a>
+props CfnDomainProps
+
+ - 리소스에 대한 속성
+
+#### 프로퍼티 <a id="properties"></a>
 
 **cfnProperties**
 
@@ -80,37 +84,37 @@ string \| undefined
 
 **inspect\(inspector\)**
 
-Examines the CloudFormation resource and discloses attributes.
+CloudFormation 리소스를 검토하고 속성을 공개합니다.
 
-**Declaration**
+**정의**
 
 ```text
 inspect(inspector: cdk.TreeInspector): void;
 ```
 
-**Parameters**
+**파라미터**
 
 inspector cdk.TreeInspector
 
-tree inspector to collect and process attributes.
+트리 검사기를 사용하여 속성을 수집하고 처리할 수 있습니다.
 
-**Returns**
+**반환값**
 
 void
 
 **renderProperties\(props\)**
 
-**Declaration**
+**정의**
 
 ```text
 protected renderProperties:
 ```
 
-**Parameters**
+**파라미터**
 
 props { \[key: string\]: any; }
 
-**Returns**
+**반환값**
 
 { \[key: string\]: any; }
 
